@@ -1,0 +1,21 @@
+ <form action="{{ url_for('delete_files') }}" method="post">
+                <div class="table">
+                    <table>
+                        <tr class=table-headings>
+                            <td class="Select">Select</td>
+                            <td class="Filename">File Name</td>
+                            <td class="Filepath">File Path</td>
+                            <td class="delete">Delete</td>
+                        </tr>
+                        {% for file in files %}
+                            <tr>
+                                <td><input type="checkbox" name="selected_files" value="{{ file }}"></td>
+                                <td>{{ file }}</td>
+                                <td>{{ file_path }}</td>
+                                <td><a style="text-decoration: none;" href="{{ url_for('delete_file', filename=file) }}"><img src="https://cdn.iconscout.com/icon/free/png-256/free-bin-2782756-2316163.png"></a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <input type="submit" value="Delete Selected">
+                </div>
+            </form>
