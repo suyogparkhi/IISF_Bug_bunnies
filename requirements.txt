@@ -1,0 +1,11 @@
+1) Python
+2) Flask
+3) DuckDB
+4) OS
+5) pickle
+6) PyPDF2
+7) PIL
+8) dbfread
+9) heapq
+10) random
+11) PostgreSQL (in case of TB's of data)
