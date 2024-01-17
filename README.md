@@ -39,13 +39,13 @@ Frontend :
 <br>
 MinHash :
 Preprocessing (conversion to txt) :
-![WhatsApp Image 2024-01-17 at 23 29 57](https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/a075c172-e138-4239-a29d-afc132f92cdb)
+<img width="1470" alt="Screenshot 2024-01-17 at 11 23 23 PM" src="https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/a075c172-e138-4239-a29d-afc132f92cdb">
 list of redundant files :
-![WhatsApp Image 2024-01-17 at 23 30 21](https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/54e0d93d-2bdf-4fe8-b70f-a747cb5a4e51)
+<img width="1470" alt="Screenshot 2024-01-17 at 11 23 23 PM" src="https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/54e0d93d-2bdf-4fe8-b70f-a747cb5a4e51">
 jaccard simmilarity :
-![WhatsApp Image 2024-01-17 at 23 30 34](https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/0d459433-8a21-4b30-b84c-fad74de394a1)
+<img width="1470" alt="Screenshot 2024-01-17 at 11 23 23 PM" src="https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/0d459433-8a21-4b30-b84c-fad74de394a1">
 redundancy set :
-![WhatsApp Image 2024-01-17 at 23 30 49](https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/01f40868-efc8-49a3-9dd0-54d7f694e27f)
+<img width="1470" alt="Screenshot 2024-01-17 at 11 23 23 PM" src="https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/01f40868-efc8-49a3-9dd0-54d7f694e27f">
 Gespatial configuration using duckDB :
 <br>
 <img width="1225" alt="Screenshot 2024-01-17 at 11 25 11 PM" src="https://github.com/suyogparkhi/IISF_Bug_bunnies/assets/120791980/18eb8cea-3de7-439f-b4a2-95d1e9860b7c">
