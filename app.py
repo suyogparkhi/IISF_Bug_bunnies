@@ -51,21 +51,6 @@ def index():
     files = os.listdir(app.config['UPLOAD_FOLDER'])
     return render_template('index.html', form=form, files=files)
 
-def find_duplicates(source_dir, dest_dir):
-    source_files = get_all_files(source_dir)
-    dest_files = get_all_files(dest_dir)
-
-    duplicate_files = set(source_files) & set(dest_files)
-    return list(duplicate_files)
-
-def get_all_files(directory):
-    all_files = []
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            file_path = os.path.join(root, file)
-            all_files.append(file_path)
-    return all_files
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
