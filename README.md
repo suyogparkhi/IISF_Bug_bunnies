@@ -20,3 +20,13 @@ updates (timestamp : 17th jan 10 pm) :
 4) Sample Cataloging completed
 5) Yet to write generic code to implement Cataloging and its frontend integration
    
+Installations:
+<br>
+<code>
+pip install flask
+pip install duckdb leafmap
+conda create -n geo python=3.11
+conda activate geo
+conda install -c conda-forge mamba
+mamba install -c conda-forge python-duckdb duckdb-engine jupysql leafmap
+</code>
