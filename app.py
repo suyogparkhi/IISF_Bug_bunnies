@@ -1,8 +1,12 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import os
+import conversion
+import shingles
+import minhash
+import json
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['UPLOAD_FOLDER'] = 'C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\IISF_Bug_bunnies-main\\uploads'
 app.config['SECRET_KEY'] = 'your_secret_key'
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'tar.gz', 'rpm', 'pix', 'cfg', 'exe', 'min.js', 'log', 'xlsx', 'zip', 'sh', 'bk', 'sql', 'jpeg', 'png', 'jpg'}
@@ -27,7 +31,7 @@ def index():
         
         if not input_folder1 or not input_folder2:
             flash('Both source and destination directories are required.', 'error')
-        else:
+        else:   
             form.source_dir = os.path.abspath(input_folder1)
             form.dest_dir = os.path.abspath(input_folder2)
 
@@ -43,6 +47,7 @@ def index():
                 json.dump(filename_mapping, json_file, indent=4)
             no_shingles = shingles.main()
             duplicates = minhash.run_minhash(no_shingles, "C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\docShingleDict.pkl")
+            
             if duplicates:
                 return render_template('results.html', form=form, duplicates=duplicates)
             else:
