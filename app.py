@@ -20,16 +20,29 @@ def index():
     form = CompareForm()
 
     if request.method == 'POST':
-        source_dir = request.form['source_directory']
-        dest_dir = request.form['destination_directory']
-
-        if not source_dir or not dest_dir:
+        input_folder1 = request.form['source_directory']
+        input_folder2 = request.form['destination_directory']
+        output_folder_txt = 'C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\flask\\flask\\txt_out'
+        output_folder_jpg = 'C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\flask\\flask\\img_out'
+        
+        if not input_folder1 or not input_folder2:
             flash('Both source and destination directories are required.', 'error')
         else:
-            form.source_dir = os.path.abspath(source_dir)
-            form.dest_dir = os.path.abspath(dest_dir)
+            form.source_dir = os.path.abspath(input_folder1)
+            form.dest_dir = os.path.abspath(input_folder2)
 
-            duplicates = find_duplicates(source_dir, dest_dir)
+            # Process folder1 and folder2
+            mapping_folder1, file_counter1 = conversion.process_folder(input_folder1, output_folder_txt, output_folder_jpg, folder_number=1)
+            mapping_folder2, file_counter2 = conversion.process_folder(input_folder2, output_folder_txt, output_folder_jpg, folder_number=2, file_counter_start=file_counter1)
+
+             # Combine the mapping dictionaries
+            filename_mapping = {**mapping_folder1, **mapping_folder2}
+    
+            json_file_path = "C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\mapping.json"
+            with open(json_file_path, 'w') as json_file:
+                json.dump(filename_mapping, json_file, indent=4)
+            no_shingles = shingles.main()
+            duplicates = minhash.run_minhash(no_shingles, "C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\docShingleDict.pkl")
             if duplicates:
                 return render_template('results.html', form=form, duplicates=duplicates)
             else:
