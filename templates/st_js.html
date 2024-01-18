@@ -8,7 +8,13 @@
 <body>
 <form method="POST" action="{{ url_for('submit_form') }}">
     <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" required></select>
-    <select id="state" name="district" class="form-control" default = "None"></select>
+    <select id="catalog">
+        <options value="agri">Agriculture </options>
+        <options value="popu">Population</options>
+        <options value="therm">Thermplot</options>
+        <options value="perc">Precipitation</options>
+    </select>
+<!--     <select id="state" name="district" class="form-control" default = "None"></select> -->
     <script language="javascript">print_state("sts");</script>
     <button type="submit">Submit</button>
 </form>
