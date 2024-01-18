@@ -35,14 +35,12 @@
                 <form method="post" enctype="multipart/form-data" class="compare-form" action="{{ url_for('index') }}">
                     <label for="folder1" class="form-lable">Source Directory:</label>
                     <div>
-                        <input type="text" id="folder1" name="folder1" value="{{ form.source_dir }}" required readonly>
-                        <button type="button" onclick="chooseDirectory('folder1')" class="choose">Choose Folder</button>
+                        <input type="text" id="folder1" name="folder1">
                     </div>
                     <br>
                     <label for="folder2" class="form-lable">Destination Directory:</label>
                     <div>
-                        <input type="text" id="folder2" name="folder2" value="{{ form.dest_dir }}" required readonly>
-                        <button type="button" onclick="chooseDirectory('folder2')" class="choose">Choose Folder</button>
+                        <input type="text" id="folder2" name="folder2">
                     </div>
                     <br>
                     <button type="submit" class="compare-button">Compare</button>
