@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="{{ url_for('static', filename='js/st_js.js') }}"></script>
+    <link href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+<form method="POST" action="{{ url_for('submit_form') }}">
+    <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" required></select>
+    <select id="state" name="district" class="form-control" default = "None"></select>
+    <script language="javascript">print_state("sts");</script>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
