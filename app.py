@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-import os
+import os , folium
 import subprocess
 import conversion
 import shingles
 import minhash
-import json
+import json , test1
 # import send_file
 
 app = Flask(__name__)
@@ -88,6 +88,67 @@ def delete_files():
         if os.path.exists(file_path):
             os.remove(file_path)
     return redirect(url_for('index'))
+
+@app.route('/geospatial')
+def geospatial():
+    return render_template('st_js.html')
+
+# @app.route('/submit_form', methods=['POST'])
+# def submit_form():
+#     selected_state = request.form.get('stt')
+#     with open('geojson1.geojson', 'r') as file:
+#         data = json.load(file)
+
+#     filtered_features = [feature for feature in data['features'] if feature['properties']['NAME_1'] == selected_state]
+
+#     filtered_data = {
+#         "type": "FeatureCollection",
+#         "crs": data["crs"],
+#         "features": filtered_features
+#     }
+
+#     with open('filtered_geojson.geojson', 'w') as output_file:
+#         json.dump(filtered_data, output_file, indent=2)
+
+#     return ("Loading !!!!")
+
+@app.route('/submit_form', methods=['POST'])
+def submit_form():
+    selected_state = request.form.get('stt')
+    with open('geojson1.geojson', 'r') as file:
+        data = json.load(file)
+
+    filtered_features = [feature for feature in data['features'] if feature['properties']['NAME_1'] == selected_state]
+
+    filtered_data = {
+        "type": "FeatureCollection",
+        "crs": data["crs"],
+        "features": filtered_features
+    }
+
+    with open('filtered_geojson.geojson', 'w') as output_file:
+        json.dump(filtered_data, output_file, indent=2)
+
+    # Trigger JavaScript to redirect to /catalog after the "Loading!!!" message
+    return '''
+    <script>
+        alert("Loading !!!!");
+        window.location.href = '/catalog';
+    </script>
+    '''
+
+@app.route('/catalog')
+
+def catalog():
+    geojson_file = 'filtered_geojson.geojson'
+
+    m = folium.Map(location=[20.5937, 78.9629], zoom_start=5)
+    folium.GeoJson(geojson_file).add_to(m)
+
+    map_path = 'templates/map.html'
+    m.save(map_path)
+    return render_template('map.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
