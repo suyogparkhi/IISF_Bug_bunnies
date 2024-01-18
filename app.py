@@ -8,7 +8,7 @@ import json , test1
 # import send_file
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\uploads'
+app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['SECRET_KEY'] = 'your_secret_key'
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'tar.gz', 'rpm', 'pix', 'cfg', 'exe', 'min.js', 'log', 'xlsx', 'zip', 'sh', 'bk', 'sql', 'jpeg', 'png', 'jpg'}
@@ -28,8 +28,8 @@ def index():
     if request.method == 'POST':
         input_folder1 = request.form['folder1']
         input_folder2 = request.form['folder2']
-        output_folder_txt = 'C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\txt_out'
-        output_folder_jpg = 'C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\img_out'
+        output_folder_txt = 'txt_out'
+        output_folder_jpg = 'img_out'
 
         # form input
         form.source_dir = os.path.abspath(input_folder1)
@@ -42,12 +42,12 @@ def index():
         # Combine the mapping dictionaries
         filename_mapping = {**mapping_folder1, **mapping_folder2}
 
-        json_file_path = "C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\mapping.json"
+        json_file_path = "mapping.json"
         with open(json_file_path, 'w') as json_file:
             json.dump(filename_mapping, json_file, indent=4)
 
         no_shingles = shingles.main()
-        duplicates = minhash.run_minhash(no_shingles, "C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\docShingleDict.pkl")
+        duplicates = minhash.run_minhash(no_shingles, "docShingleDict.pkl")
 
         if duplicates:
             return render_template('results.html', form=form, duplicates=duplicates, json_file_path=json_file_path)
@@ -94,7 +94,7 @@ def delete_files_from_results():
     selected_files = request.form.getlist('selected_files')
 
     # Read the mapping.json file
-    with open('C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\mapping.json', 'r') as json_file:
+    with open('mapping.json', 'r') as json_file:
         filename_mapping = json.load(json_file)
 
     # Delete the selected files from the original directories
