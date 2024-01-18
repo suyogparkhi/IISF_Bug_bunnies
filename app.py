@@ -89,6 +89,25 @@ def delete_files():
             os.remove(file_path)
     return redirect(url_for('index'))
 
+@app.route('/delete_files_from_results', methods=['POST'])
+def delete_files_from_results():
+    selected_files = request.form.getlist('selected_files')
+
+    # Read the mapping.json file
+    with open('C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\mapping.json', 'r') as json_file:
+        filename_mapping = json.load(json_file)
+
+    # Delete the selected files from the original directories
+    for filename in selected_files:
+        file_path = filename_mapping.get(filename)
+        if file_path and os.path.exists(file_path):
+            os.remove(file_path)
+
+    flash('Selected files have been deleted successfully.', 'success')
+
+    # Redirect to the same results.html
+    return redirect(url_for('index'))
+    
 @app.route('/geospatial')
 def geospatial():
     return render_template('st_js.html')
