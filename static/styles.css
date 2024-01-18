@@ -6,12 +6,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow-x: hidden;
 }
 
 .container-main{
     flex: 1;
-    z-index:2;
 }
 
 .header-main {
@@ -27,7 +25,6 @@ body {
     box-shadow: 0px 1px 10px #000;
     display:flex;
     width:100%;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     
 }
 .header-left{
@@ -35,14 +32,10 @@ body {
     display:flex;
 }
 .logo{
-    margin-top: 20px;
-}
-.header span{
-    margin-top:4px
+    margin-top: 2%;
 }
 .header-left-1{
     margin-left:5%;
-    
 }
 .header-right{
     width:50%;
@@ -125,7 +118,6 @@ img{
     font-size: 50px;
     color:#fff;
     padding: 10%;
-    margin-top: -1%;
 }
 .content-left p{
     margin-top:-10%;
@@ -234,7 +226,7 @@ tr{
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     color: black;
     border: none;
   }
@@ -304,135 +296,88 @@ tr{
 .content-right form{
  margin-top: 7%;
 }
-.form_main {
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(255, 255, 255);
-    padding: 30px 30px 30px 30px;
-    border-radius: 30px;
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
-  }
-  
-  .heading {
-    font-size: 2.5em;
-    color: #2e2e2e;
-    font-weight: 700;
-    margin: 15px 0 30px 0;
-  }
-  
-  .inputContainer {
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .inputIcon {
-    position: absolute;
-    left: 10px;
-  }
-  
-  .inputField {
-    width: 100%;
-    height: 40px;
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid rgb(173, 173, 173);
-    border-radius: 30px;
-    margin: 10px 0;
-    color: black;
-    font-size: .8em;
-    font-weight: 500;
-    box-sizing: border-box;
-    padding-left: 30px;
-  }
-  
-  .inputField:focus {
-    outline: none;
-    border-bottom: 2px solid royalblue;
-  }
-  
-  .inputField::placeholder {
-    color: rgb(80, 80, 80);
-    font-size: 1em;
-    font-weight: 500;
-  }
-  
-  #button {
-    position: relative;
-    width: 100%;
-    border: 2px solid royalblue;
-    background-color: royalblue;
-    height: 40px;
-    color: white;
-    font-size: .8em;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 30px;
-    margin: 10px;
-    cursor: pointer;
-    overflow: hidden;
-  }
-  
-  #button::after {
-    content: "";
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.253);
-    height: 100%;
-    width: 150px;
-    top: 0;
-    left: -200px;
-    border-bottom-right-radius: 100px;
-    border-top-left-radius: 100px;
-    filter: blur(10px);
-    transition-duration: .5s;
-  }
-  
-  #button:hover::after {
-    transform: translateX(600px);
-    transition-duration: .5s;
-  }
-  
-  .signupContainer {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .signupContainer p {
-    font-size: .9em;
-    font-weight: 500;
-    color: black;
-  }
-  
-  .signupContainer a {
-    font-size: .7em;
-    font-weight: 500;
-    background-color: #2e2e2e;
-    color: white;
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-  }
-  
-  .form-div{
-    text-align: center;
-    justify-content: center;
-    margin: auto;
-    background-color: #3A88FF;
-    padding:10%;
-    border-radius:30px ;
-  }
-  .signupContainer a{
-    font-size: 15px;
-  }
-.form-div #button{
-    font-size: 20px;
+#page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#h3 {
+  color: rgb(82, 79, 79);
+}
+
+#ring {
+  width: 190px;
+  height: 190px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: absolute;
+}
+
+#ring:nth-child(1) {
+  border-bottom: 8px solid #f47216;
+  animation: rotate1 2s linear infinite;
+}
+
+@keyframes rotate1 {
+  from {
+    transform: rotateX(50deg) rotateZ(110deg);
+  }
+
+  to {
+    transform: rotateX(50deg) rotateZ(470deg);
+  }
+}
+
+#ring:nth-child(2) {
+  border-bottom: 8px solid #0e88d3;
+  animation: rotate2 2s linear infinite;
+}
+
+@keyframes rotate2 {
+  from {
+    transform: rotateX(20deg) rotateY(50deg) rotateZ(20deg);
+  }
+
+  to {
+    transform: rotateX(20deg) rotateY(50deg) rotateZ(380deg);
+  }
+}
+
+#ring:nth-child(3) {
+  border-bottom: 8px solid #f47216;
+  animation: rotate3 2s linear infinite;
+}
+
+@keyframes rotate3 {
+  from {
+    transform: rotateX(40deg) rotateY(130deg) rotateZ(450deg);
+  }
+
+  to {
+    transform: rotateX(40deg) rotateY(130deg) rotateZ(90deg);
+  }
+}
+
+#ring:nth-child(4) {
+  border-bottom: 8px solid #0e88d3;
+  animation: rotate4 2s linear infinite;
+}
+
+@keyframes rotate4 {
+  from {
+    transform: rotateX(70deg) rotateZ(270deg);
+  }
+
+  to {
+    transform: rotateX(70deg) rotateZ(630deg);
+  }
+}
+/* Improving visualization in light mode */
