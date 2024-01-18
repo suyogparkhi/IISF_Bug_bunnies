@@ -65,7 +65,7 @@ def convert_file_to_txt(file_name, output_folder, folder_number, file_counter):
                 return jpg_path
             else:
                 return None
-        elif file_extension in ['.shx', '.sbx', '.shp']:
+        elif file_extension in ['.shx', '.sbx', '.shp']:    
             # Handle SHX, SBX, SHP files
             txt_filename = f'file{file_counter:02d}.txt'
             txt_file_path = os.path.join(output_folder, txt_filename)
@@ -114,7 +114,7 @@ def process_folder(input_folder, output_folder_txt, output_folder_jpg, folder_nu
             txt_file_path = convert_file_to_txt(file_path, output_folder_txt, folder_number, file_counter)
             if txt_file_path:
                 print(f'Converted {file} to {txt_file_path}')
-                redundancy_mapping[os.path.basename(txt_file_path)] = os.path.join(root, file)
+                redundancy_mapping[os.path.basename(txt_file_path).replace(".txt", "")] = os.path.join(root, file)
                 file_counter += 1
                 
     return redundancy_mapping, file_counter
