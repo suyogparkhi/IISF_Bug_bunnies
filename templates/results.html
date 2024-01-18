@@ -2,105 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>File Upload and Delete</title>
+    <title>File Compare Results</title>
+
+    <style>
+        body {
+            background-color: #f0f5f9; /* Light blue-gray background */
+            color: #1a3f5d; /* Dark blue text color */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #004080; /* Royal blue heading color */
+        }
+
+        .sdir, .ddir {
+            color: #004080; /* Royal blue text color for directories */
+        }
+
+        .dup {
+            color: #004080; /* Royal blue text color for duplicate files section */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #004080; /* Royal blue border for table cells */
+            text-align: left;
+        }
+
+        th {
+            background-color: #cce5ff; /* Light royal blue header background */
+        }
+
+        tr:nth-child(even) {
+            background-color: #e6f0ff; /* Lighter royal blue background for even rows */
+        }
+
+        .delete-button {
+            background-color: #004080; /* Royal blue background for delete button */
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #001a4d; /* Darker royal blue on hover */
+        }
+        h1{
+            margin-bottom: 10px;
+            text-align:center;
+            justify-content: center;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align:center;
+            justify-content: center;
+        }
+        a {
+            color: #001a4d; /* Darker royal blue for links */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        .sdir,.ddir{
+            display:inline-block;
+        }
+    </style>
 </head>
 <body>
-    <div class="container-main">
-        <div class="header-main">
-            <div class="header-left">
-                <img class="logo" src="https://static.thenounproject.com/png/5209-200.png">
-                <span>ashIt!</span>
-                <div class="header-left-1">
-                    <a href="/"><img class="logo1" src="../static/images/home.png"></a>
-                    <a href="/"><img class="logo1" src="../static/images/pre-process.png"></a>
-                    <a href="#"><img class="logo1" src="../static/images/cateloging.png"></a>
-                    <a href="#"><img class="logo1" src="../static/images/geospatial.png"></a>
-                </div>
-            </div>
-            
-            <div class="header-right">
-                <a href="#"><button class="login-button">Login</button></a>
+    <div class="header-main">
+        <div class="header-left">
+            <img class="logo" src="https://static.thenounproject.com/png/5209-200.png">
+            <span>ashIt!</span>
+            <div class="header-left-1">
+                <a href="/"><img class="logo1" src="../static/images/home.png"></a>
+                <a href="/"><img class="logo1" src="../static/images/pre-process.png"></a>
+                <a href="/geospatial"><img class="logo1" src="../static/images/cateloging.png"></a>
+                <a href="/catalog"><img class="logo1" src="../static/images/geospatial.png"></a>
             </div>
         </div>
         
-        <div class="content">  
-            <div class="content-left">
-                <h2>Geo-spatial Data Manager</h2>
-                <p>Process, Organize and Translate your geo-spatial data efficiently.</p>
-            </div> 
-            <div class="content-right">
-                <form method="post" enctype="multipart/form-data" class="compare-form" action="{{ url_for('index') }}">
-                    <label for="folder1" class="form-lable">Source Directory:</label>
-                    <div>
-                        <input type="text" id="folder1" name="folder1">
-                    </div>
-                    <br>
-                    <label for="folder2" class="form-lable">Destination Directory:</label>
-                    <div>
-                        <input type="text" id="folder2" name="folder2">
-                    </div>
-                    <br>
-                    <button type="submit" class="compare-button">Compare</button>
-                </form>
-                
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul class="errors">
-                            {% for message in messages %}
-                                <li>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                {% endwith %}
+        <div class="header-right">
+            <a href="#"><button class="login-button">Login</button></a>
+        </div>
+    </div>
+    <h1>File Compare Results</h1>
+    <p class="sdir">Source Directory:</p> {{ form.source_dir }}
+    <p class="ddir">Destination Directory:</p>{{ form.dest_dir }}
 
-                <script>
-                    function chooseDirectory(inputId) {
-                        document.getElementById(inputId).value = "";
-                        const input = document.createElement("input");
-                        input.type = "file";
-                        input.webkitdirectory = true;
-                        input.onchange = function () {
-                            const files = input.files;
-                            if (files.length > 0) {
-                                document.getElementById(inputId).value = files[0].path || files[0].webkitRelativePath;
-                            }
-                        };
-                        input.click();
-                    }
-                </script>
-            </div>
-        </div>
-        
-        <div class="container-2">
-            <form action="{{ url_for('delete_files') }}" method="post">
-                <div class="table">
-                    <table>
-                        <tr class=table-headings>
-                            <td class="Select">Select</td>
-                            <td class="Filename">File Name</td>
-                            <td class="Filepath">File Path</td>
-                            <td class="delete">Delete</td>
-                        </tr>
-                        {% for file in files %}
-                            <tr>
-                                <td><input type="checkbox" name="selected_files" value="{{ file }}"></td>
-                                <td>{{ file }}</td>
-                                <td>{{ file_path }}</td>
-                                <td><a style="text-decoration: none;" href="{{ url_for('delete_file', filename=file) }}"><img src="https://cdn.iconscout.com/icon/free/png-256/free-bin-2782756-2316163.png"></a></td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                    <input type="submit" value="Delete Selected" class="delete-button">
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <div class="footer">
-        &copy; 2023 Your Company
-    </div>
+    <form action="{{ url_for('delete_files_from_results') }}" method="post" id="deleteForm">
+        {% if duplicates %}
+        <p class="dup">Duplicate files found:</p>
+        <table border="1">
+            <tr>
+                <th class="sth">Select</th>
+                <th class="fth">File Path</th>
+                <th class="size-th">File Size (KB)</th>
+            </tr>
+            {% for file_set in duplicates %}
+                {% for file in file_set %}
+                    <tr>
+                        <td><input type="checkbox" name="selected_files" value="{{ file }}"></td>
+                        <td><a href="{{ url_for('open_file', filename=file) }}" target="_blank">{{ file }}</a></td>
+                        <td>{{ get_file_size(file) }}</td>
+                    </tr>
+                {% endfor %}
+                <tr style="background-color: black; height: 2px;">
+                    <td colspan="3"></td>   
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <input type="submit" value="Delete Selected" class="delete-button">
+        {% elif no_duplicates %}
+        <p>No duplicate files found.</p>
+        {% endif %}
+    </form>
+
+    <script>
+        function deleteSelected() {
+            document.getElementById("deleteForm").submit();
+        }
+    </script>
 </body>
 </html>
