@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
     <style>
         body {
             background-color: #f0f5f9; /* Light blue-gray background */
-            color: #1a3f5d; /* Dark blue text color */
+            color: #001a4d; /* Darker royal blue text color */
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
@@ -17,24 +18,41 @@
 
         h1 {
             color: #004080; /* Royal blue heading color */
+            margin-bottom: 10px;
+            text-align: center;
         }
 
-        .sdir, .ddir {
+        .sdir,
+        .ddir {
             color: #004080; /* Royal blue text color for directories */
+            display: inline-block;
+            margin-left: 15px
         }
 
         .dup {
             color: #004080; /* Royal blue text color for duplicate files section */
+            text-align: center;
+            justify-content: center;
         }
 
-        table {
-            width: 100%;
+        table { /* Reduced overall width */
             border-collapse: collapse;
             margin-top: 15px;
+            max-width:10%
+            border-color:transparent;
+            margin-left: 20px
+            margin-right: 20px
         }
-
-        th, td {
-            padding: 10px;
+        .sth{
+            width:40px;
+            justify-content:center;
+        }
+        .fth{
+            width:500px;
+        }
+        th,
+        td {
+            padding: 8px; /* Reduced padding for a more compact look */
             border: 1px solid #004080; /* Royal blue border for table cells */
             text-align: left;
         }
@@ -43,8 +61,12 @@
             background-color: #cce5ff; /* Light royal blue header background */
         }
 
+        tr:nth-child(odd) {
+            background-color: #add8e6; /* Light blue background for odd rows */
+        }
+
         tr:nth-child(even) {
-            background-color: #e6f0ff; /* Lighter royal blue background for even rows */
+            background-color: #87cefa; /* Blue background for even rows */
         }
 
         .delete-button {
@@ -58,17 +80,13 @@
         .delete-button:hover {
             background-color: #001a4d; /* Darker royal blue on hover */
         }
-        h1{
-            margin-bottom: 10px;
-            text-align:center;
-            justify-content: center;
-        }
 
         p {
             margin-bottom: 10px;
-            text-align:center;
+            text-align: center;
             justify-content: center;
         }
+
         a {
             color: #001a4d; /* Darker royal blue for links */
             text-decoration: none;
@@ -77,11 +95,13 @@
         a:hover {
             text-decoration: underline;
         }
-        .sdir,.ddir{
-            display:inline-block;
+        .results-table{
+            margin-right:auto;
         }
     </style>
+    
 </head>
+
 <body>
     <div class="header-main">
         <div class="header-left">
@@ -94,7 +114,7 @@
                 <a href="/catalog"><img class="logo1" src="../static/images/geospatial.png"></a>
             </div>
         </div>
-        
+
         <div class="header-right">
             <a href="#"><button class="login-button">Login</button></a>
         </div>
@@ -106,7 +126,7 @@
     <form action="{{ url_for('delete_files_from_results') }}" method="post" id="deleteForm">
         {% if duplicates %}
         <p class="dup">Duplicate files found:</p>
-        <table border="1">
+        <table border="1" class="results-table">
             <tr>
                 <th class="sth">Select</th>
                 <th class="fth">File Path</th>
@@ -121,7 +141,7 @@
                     </tr>
                 {% endfor %}
                 <tr style="background-color: black; height: 2px;">
-                    <td colspan="3"></td>   
+                    <td colspan="3"></td>
                 </tr>
             {% endfor %}
         </table>
@@ -138,4 +158,5 @@
         }
     </script>
 </body>
+
 </html>
