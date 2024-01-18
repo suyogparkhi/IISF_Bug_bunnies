@@ -116,6 +116,7 @@ def process_folder(input_folder, output_folder_txt, output_folder_jpg, folder_nu
                 print(f'Converted {file} to {txt_file_path}')
                 redundancy_mapping[os.path.basename(txt_file_path)] = os.path.join(root, file)
                 file_counter += 1
+                
     return redundancy_mapping, file_counter
 
 
