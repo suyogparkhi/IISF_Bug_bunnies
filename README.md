@@ -3,7 +3,8 @@ This is the repository of Bug Bunnies , Group-3 IISF Space Hackathon 2023
 <br>
 # Problem Statement :
 <br>
-Group 3, Topic 1: Optimized Geospatial Data Management for Bhuvan Platform.
+# Group 3, Topic 1:
+Optimized Geospatial Data Management for Bhuvan Platform.
 <br><br>
 # Our Approach :
 <br>
