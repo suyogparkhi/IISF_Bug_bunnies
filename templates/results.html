@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rstyles.css') }}">
+    <title>File Compare Results</title>
+</head>
+<body>
+    <h1>File Compare Results</h1>
+    <p class="sdir">Source Directory:</p> {{ form.source_dir }}
+    <p class="ddir">Destination Directory:</p>{{ form.dest_dir }}
+
+    {% if duplicates %}
+<p class="dup">Duplicate files found:</p>
+<form action="{{ url_for('delete_files') }}" method="post">
+    <table border="1">
+        <tr>
+            <th class="sth">Select</th>
+            <th class="fth">File Path</th>
+        </tr>
+        {% for file_set in duplicates %}
+            {% for file in file_set %}
+                <tr>
+                    <td><input type="checkbox" name="selected_files" value="{{ file }}"></td>
+                    <td><a href="{{ file }}" target="_blank">{{ file }}</a></td>
+                </tr>
+            {% endfor %}
+            <tr style="background-color: black; height: 2px;">
+                <td colspan="2"></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <input type="submit" value="Delete Selected" class="delete-button">
+</form>
+{% elif no_duplicates %}
+<p>No duplicate files found.</p>
+{% endif %}
+
+</body>
+</html>

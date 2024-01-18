@@ -1,12 +1,14 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import os
+import subprocess
 import conversion
 import shingles
 import minhash
 import json
+# import send_file
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\IISF_Bug_bunnies-main\\uploads'
+app.config['UPLOAD_FOLDER'] = 'C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\uploads'
 app.config['SECRET_KEY'] = 'your_secret_key'
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'tar.gz', 'rpm', 'pix', 'cfg', 'exe', 'min.js', 'log', 'xlsx', 'zip', 'sh', 'bk', 'sql', 'jpeg', 'png', 'jpg'}
@@ -24,34 +26,33 @@ def index():
     form = CompareForm()
 
     if request.method == 'POST':
-        input_folder1 = request.form['source_directory']
-        input_folder2 = request.form['destination_directory']
-        output_folder_txt = 'C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\flask\\flask\\txt_out'
-        output_folder_jpg = 'C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\flask\\flask\\img_out'
-        
-        if not input_folder1 or not input_folder2:
-            flash('Both source and destination directories are required.', 'error')
-        else:   
-            form.source_dir = os.path.abspath(input_folder1)
-            form.dest_dir = os.path.abspath(input_folder2)
+        input_folder1 = request.form['folder1']
+        input_folder2 = request.form['folder2']
+        output_folder_txt = 'C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\txt_out'
+        output_folder_jpg = 'C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\img_out'
 
-            # Process folder1 and folder2
-            mapping_folder1, file_counter1 = conversion.process_folder(input_folder1, output_folder_txt, output_folder_jpg, folder_number=1)
-            mapping_folder2, file_counter2 = conversion.process_folder(input_folder2, output_folder_txt, output_folder_jpg, folder_number=2, file_counter_start=file_counter1)
+        # form input
+        form.source_dir = os.path.abspath(input_folder1)
+        form.dest_dir = os.path.abspath(input_folder2)
 
-             # Combine the mapping dictionaries
-            filename_mapping = {**mapping_folder1, **mapping_folder2}
-    
-            json_file_path = "C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\mapping.json"
-            with open(json_file_path, 'w') as json_file:
-                json.dump(filename_mapping, json_file, indent=4)
-            no_shingles = shingles.main()
-            duplicates = minhash.run_minhash(no_shingles, "C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\docShingleDict.pkl")
-            
-            if duplicates:
-                return render_template('results.html', form=form, duplicates=duplicates)
-            else:
-                return render_template('results.html', form=form, no_duplicates=True)
+        # Process folder1 and folder2
+        mapping_folder1, file_counter1 = conversion.process_folder(input_folder1, output_folder_txt, output_folder_jpg, folder_number=1)
+        mapping_folder2, file_counter2 = conversion.process_folder(input_folder2, output_folder_txt, output_folder_jpg, folder_number=2, file_counter_start=file_counter1)
+
+        # Combine the mapping dictionaries
+        filename_mapping = {**mapping_folder1, **mapping_folder2}
+
+        json_file_path = "C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\mapping.json"
+        with open(json_file_path, 'w') as json_file:
+            json.dump(filename_mapping, json_file, indent=4)
+
+        no_shingles = shingles.main()
+        duplicates = minhash.run_minhash(no_shingles, "C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\docShingleDict.pkl")
+
+        if duplicates:
+            return render_template('results.html', form=form, duplicates=duplicates, json_file_path=json_file_path)
+        else:
+            return render_template('results.html', form=form, no_duplicates=True)
 
     files = os.listdir(app.config['UPLOAD_FOLDER'])
     return render_template('index.html', form=form, files=files)

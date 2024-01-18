@@ -52,7 +52,7 @@ def generate_shingles(file_paths):
 
 
 def main():
-    folder1_path = "C:\\Users\\ekans\\OneDrive\\Documents\\SIF 2023\\flask\\flask\\txt_out"
+    folder1_path = "C:\\Users\\ekans\\OneDrive\\Desktop\\IISF_Bug_bunnies-main\\txt_out"
     files = os.listdir(folder1_path)
     num_files = len([f for f in files if os.path.isfile(os.path.join(folder1_path, f))])
     folder1_file_paths = generate_file_paths(folder1_path, num_files)
